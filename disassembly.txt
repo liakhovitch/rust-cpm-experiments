@@ -1,0 +1,119 @@
+
+target/z80-unknown-none-elf/debug/cpm-test.elf:	file format elf32-unknown
+
+Disassembly of section .text:
+
+00000100 <_start>:
+     100: 2a 06 00     	ld	hl,($6)                 ; 0x6
+     103: 2b           	dec	hl
+     104: f9           	ld	sp,hl
+     105: cd 09 01     	call	$109
+     108: c7           	rst	0
+
+00000109 <cpm_test::main>:
+     109: cd 16 01     	call	$116
+     10c: cd 2c 01     	call	$12c
+     10f: cd 47 01     	call	$147
+     112: cd 61 01     	call	$161
+     115: c9           	ret
+
+00000116 <cpm_test::my_print_shadow>:
+     116: 01 97 01     	ld	bc,$197
+     119: 11 0f 00     	ld	de,$f
+     11c: 0a           	ld	a,(bc)
+     11d: d9           	exx
+     11e: 0e 02        	ld	c,$2
+     120: 5f           	ld	e,a
+     121: cd 05 00     	call	$5
+     124: d9           	exx
+     125: 03           	inc	bc
+     126: 1b           	dec	de
+     127: 7b           	ld	a,e
+     128: b2           	or	d
+     129: 20 f1        	jr	nz,$11c
+     12b: c9           	ret
+
+0000012c <cpm_test::my_print_handmade>:
+     12c: 21 97 01     	ld	hl,$197
+     12f: 11 0f 00     	ld	de,$f
+     132: f5           	push	af
+     133: c5           	push	bc
+     134: d5           	push	de
+     135: 5e           	ld	e,(hl)
+     136: e5           	push	hl
+     137: 0e 02        	ld	c,$2
+     139: cd 05 00     	call	$5
+     13c: e1           	pop	hl
+     13d: d1           	pop	de
+     13e: 23           	inc	hl
+     13f: 1b           	dec	de
+     140: 7b           	ld	a,e
+     141: b2           	or	d
+     142: 20 f0        	jr	nz,$134
+     144: c1           	pop	bc
+     145: f1           	pop	af
+     146: c9           	ret
+
+00000147 <cpm_test::my_print_pushpop>:
+     147: 01 97 01     	ld	bc,$197
+     14a: 21 0f 00     	ld	hl,$f
+     14d: 0a           	ld	a,(bc)
+     14e: 5f           	ld	e,a
+     14f: f5           	push	af
+     150: c5           	push	bc
+     151: e5           	push	hl
+     152: 0e 02        	ld	c,$2
+     154: cd 05 00     	call	$5
+     157: e1           	pop	hl
+     158: c1           	pop	bc
+     159: f1           	pop	af
+     15a: 03           	inc	bc
+     15b: 2b           	dec	hl
+     15c: 7d           	ld	a,l
+     15d: b4           	or	h
+     15e: 20 ed        	jr	nz,$14d
+     160: c9           	ret
+
+00000161 <cpm_test::my_print>:
+     161: f5           	push	af
+     162: f5           	push	af
+     163: 01 97 01     	ld	bc,$197
+     166: 11 0f 00     	ld	de,$f
+     169: 21 00 00     	ld	hl,$0
+     16c: 39           	add	hl,sp
+     16d: 73           	ld	(hl),e
+     16e: 23           	inc	hl
+     16f: 72           	ld	(hl),d
+     170: 21 02 00     	ld	hl,$2
+     173: 39           	add	hl,sp
+     174: 71           	ld	(hl),c
+     175: 23           	inc	hl
+     176: 70           	ld	(hl),b
+     177: 0a           	ld	a,(bc)
+     178: 0e 02        	ld	c,$2
+     17a: 5f           	ld	e,a
+     17b: cd 05 00     	call	$5
+     17e: 21 00 00     	ld	hl,$0
+     181: 39           	add	hl,sp
+     182: 5e           	ld	e,(hl)
+     183: 23           	inc	hl
+     184: 56           	ld	d,(hl)
+     185: 21 02 00     	ld	hl,$2
+     188: 39           	add	hl,sp
+     189: 4e           	ld	c,(hl)
+     18a: 23           	inc	hl
+     18b: 46           	ld	b,(hl)
+     18c: 03           	inc	bc
+     18d: 1b           	dec	de
+     18e: 7b           	ld	a,e
+     18f: b2           	or	d
+     190: 20 d7        	jr	nz,$169
+     192: 33           	inc	sp
+     193: 33           	inc	sp
+     194: 33           	inc	sp
+     195: 33           	inc	sp
+     196: c9           	ret
+
+00000197 <L_anon.672ed71045e66ffb316074a7062168be.0>:
+     197: 48 65 6c 6c 6f 2c 20 57         Hello, W
+     19f: 6f 72 6c 64 21 0d 0a            orld!..

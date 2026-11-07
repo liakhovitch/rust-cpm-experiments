@@ -1,0 +1,47 @@
+[build]
+target = "z80-unknown-none-elf" # build for the target triple (ignored by `cargo install`)
+target-dir = "target"         # path of where to place generated artifacts
+build-dir = "target"          # path of where to place intermediate build artifacts
+incremental = true            # whether or not to enable incremental compilation
+
+[env]
+# Set ENV_VAR_NAME=value for any process run by Cargo
+#ENV_VAR_NAME = "value"
+
+[profile.dev]
+opt-level = "s"            # Optimization level.
+#split-debuginfo = "packed"
+debug = true             # Include debug info.
+#strip = "symbols"           # Removes symbols or debuginfo.
+debug-assertions = false  # Enables debug assertions.
+overflow-checks = false   # Enables runtime integer overflow checks.
+lto = true              # Sets link-time optimization.
+panic = 'abort'          # The panic strategy.
+incremental = true       # Incremental compilation.
+codegen-units = 1        # Number of code generation units.
+rpath = false            # Sets the rpath linking option.
+
+[profile.release]         # Modify profile settings via config.
+opt-level = "s"            # Optimization level.
+#split-debuginfo = "packed"
+debug = true             # Include debug info.
+#strip = "symbols"           # Removes symbols or debuginfo.
+debug-assertions = false  # Enables debug assertions.
+overflow-checks = false   # Enables runtime integer overflow checks.
+lto = true              # Sets link-time optimization.
+panic = 'abort'          # The panic strategy.
+incremental = true       # Incremental compilation.
+codegen-units = 1        # Number of code generation units.
+rpath = false            # Sets the rpath linking option.
+
+[target.z80-unknown-none-elf]
+linker = "rust-lld"              # linker to use
+#runner = ""              # wrapper to run executables
+rustflags = [
+  "-Zlocation-detail=none",
+  "-Zfmt-debug=none",
+  "-Zunstable-options",
+  "-Cpanic=immediate-abort",
+  "-Clink-arg=-Tlayout.ld",
+  "-Cllvm-args=--inline-threshold=225",
+]
